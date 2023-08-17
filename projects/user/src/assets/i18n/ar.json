@@ -1,0 +1,48 @@
+{
+    "general": {
+        "loading": "يتم التحميل"
+    },
+    "login": {
+        "title": "تسجيل الدخول",
+        "email": "الإيميل",
+        "password": "كلمة السر",
+        "required": "الحقل مطلوب",
+        "create-account" : "إنشاء حساب"
+    },
+    "register":{
+        "title": "التسجيل",
+        "username" : "اسم المستخدم",
+        "email": "الإيميل",
+        "password": "كلمة المرور",
+        "confirm-password" : "تأكيد كلمة المرور",
+        "not-matched" : "غير متطابقة",
+        "required": "الحقل مطلوب",
+        "create-account" : "إنشاء حساب",
+        "have-an-account" : "هل يوجد لديك حساب ؟"
+    },
+    "header": {
+        "all-tasks": "جميع المهمات",
+        "users": "المستخدمين",
+        "logout": "تسجيل الخروج"
+    },
+    "toastr": {
+        "success-login": "تم تسجيل الدخول بنجاح",
+        "success-create-account" : "تم إنشاء الحساب بنجاح",
+        "success-complete": "تم اكمال المهمة بنجاح"
+    },
+    "buttons": {
+       "complete": "المهمة اكتملت",
+       "details": "التفاصيل"
+    },
+    "tooltip":{
+       "close":"إغلاق"
+    },
+    "confirmation":{
+        "ok": "موافق",
+        "cancel":"الغاء",
+        "dialog":"مربع حوار",
+        "message": "هل أنت متأكد من ",
+        "message-logout": "تسجيل الخروج",
+        "message-complete":"اكمال المهمة"
+    }
+}

@@ -1,0 +1,86 @@
+{
+    "forms": {
+        "search": "Search",
+        "searchPH": "title Search",
+        "user": "By User",
+        "status": "Status",
+        "date": "Enter a date range",
+        "datePH-start": "Start Date",
+        "datePH-end": "End Date",
+        "id" : "Id",
+        "name" : "Name",
+        "email" : "Email",
+        "task-assigned" : "Task Assigned"
+    },
+    "colLabel": {
+        "image": "Image",
+        "title": "Title",
+        "user": "User",
+        "deadline": "DeadLine Date",
+        "status": "Status",
+        "actions": "Actions"
+    },
+    "addTask": {
+        "label": "Add New Task",
+        "title": "Title",
+        "titlePH": "title",
+        "user": "User",
+        "userPH": "User",
+        "imagePath" : "Image Path",
+        "deadline": "DeadLine Date",
+        "description": "Description",
+        "descriptionPH": "task description ..."
+    },
+    "general": {
+        "loading": "Loading"
+    },
+    "login": {
+        "title": "Login",
+        "email": "Email",
+        "password": "Password",
+        "required": "Required"
+    },
+    "header": {
+        "all-tasks": "All-Tasks",
+        "users": "Users",
+        "logout": "Logout"
+    },
+    "toastr": {
+        "success-login": "Login has been successful",
+        "success-create": "Task has been Created successfully",
+        "success-update": "Task has been Updated successfully",
+        "success-delete": "Task has been Deleted successfully",
+        "success-delete-user": "User has been Deleted successfully",
+        "error-delete-user" : "Can't Delete user until finishing his tasks",
+        "success-change-user-status" : "User status has been Changed successfully",
+        "error-change-user-status" : "Can't Change status until user finishing his tasks"
+    },
+    "buttons": {
+        "add-task": "ِAdd Task",
+        "create-task" : "Create",
+        "update-task": "Update",
+        "delete-task": "Delete",
+        "close": "Close",
+        "selectImage": "Select Image",
+        "active":"Active",
+        "in-active":"In-active"
+    },
+    "tooltip":{
+        "edit":"Edit",
+        "delete":"Delete",
+        "active":"Change to Active position",
+        "in-active":"Change to In-Active position",
+        "close": "Close"
+    },
+    "confirmation":{
+        "ok": "Ok",
+        "cancel":"Cancel",
+        "dialog":"Dialog",
+        "message": "Are you sure you want to ",
+        "message-logout": "Logout",
+        "message-delete-task":"Delete this Task",
+        "message-delete-user":"Delete this User",
+        "message-close": "discard your changes"
+    }
+
+}

@@ -1,0 +1,33 @@
+div {
+    background-color: rgba(255, 255, 255, 0.892);
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+header {
+    .icon-close {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding: 3px;
+        border-radius: 5px;
+
+        .mat-icon {
+            font-weight: 600;
+        }
+
+    }
+
+    .icon-close:hover {
+        background-color: rgb(245, 231, 231);
+    }
+}
+
+
+footer {
+    button {
+        align-items: center;
+        margin-right: 4px;
+    }
+}

@@ -1,0 +1,48 @@
+{
+    "general": {
+        "loading": "Loading"
+    },
+    "login": {
+        "title": "Login",
+        "email": "Email",
+        "password": "Password",
+        "required": "Required",
+        "create-account" : " Create Account"
+    },
+    "register":{
+        "title": "Register",
+        "username" : "Username",
+        "email": "Email",
+        "password": "Password",
+        "confirm-password" : "Confirm Password",
+        "not-matched" : "Not Matched",
+        "required": "Required",
+        "create-account" : "Create Account",
+        "have-an-account" : "Have an Account ? "
+    },
+    "header": {
+        "all-tasks": "All-Tasks",
+        "users": "Users",
+        "logout": "Logout"
+    },
+    "toastr": {
+        "success-login": "Login has been successful",
+        "success-create-account" : "Account has been created successfully",
+        "success-complete": "Task has been Completed successfully"
+    },
+    "buttons": {
+        "complete": "Complete",
+        "details": "Details"
+    },
+    "tooltip":{
+       "close":"Close"
+    },
+    "confirmation":{
+        "ok": "Ok",
+        "cancel":"Cancel",
+        "dialog": "Dialog",
+        "message": "Are you sure you want to ",
+        "message-logout": "Logout",
+        "message-complete":"Complete this task"
+    }
+}

@@ -1,0 +1,27 @@
+header {
+    .icon-close {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding: 3px;
+        border-radius: 5px;
+        .mat-icon {
+            font-weight: 600;
+        }
+    }
+
+    .icon-close:hover {
+        background-color: rgb(245, 231, 231);
+    }
+}
+
+.h1 {
+    font-weight: 800;
+}
+
+textarea {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 130px;
+    max-height: 130px;
+}

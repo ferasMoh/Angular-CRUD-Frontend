@@ -1,0 +1,25 @@
+<nav class=" navbar navbar-expand-sm navbar-light">
+    <div class="container">
+      <div class="navbar-brand" >Tasks</div>
+  
+      <div class="collapse  navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/tasks">{{'header.all-tasks' | translate}}</a>
+          </li>
+        </ul>
+        <div class="spacer">
+        </div>
+       <div class="nav-item d-flex">
+        <a class="nav-link" (click)="logout()">{{'header.logout' | translate}}</a>
+        <a class="nav-link" (click)=changeLang()>{{lang == 'en' ? 'Arabic' : 'الإنكليزية'}}</a>
+       </div>
+      </div>
+    </div>
+
+  </nav>
+
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+  

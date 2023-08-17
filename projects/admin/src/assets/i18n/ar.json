@@ -1,0 +1,85 @@
+{
+    "forms": {
+        "search": "بحث",
+        "searchPH": "بحث حسب الاسم",
+        "user": "بحث حسب اسم المستخدم",
+        "status": "الحالة",
+        "date": "أدخل نطاق التاريخ",
+        "datePH-start": "بداية التاريخ",
+        "datePH-end": "نهاية التاريخ",
+        "id" : "الرقم",
+        "name" : "الإسم",
+        "email" : "الإيميل",
+        "task-assigned" : "تعيين المهمة"
+    },
+    "colLabel": {
+        "image": "الصورة ",
+        "title": "العنوان",
+        "user": "المستخدم",
+        "deadline": "التاريخ",
+        "status": "الحالة",
+        "actions": "الحدث"
+    },
+    "addTask": {
+        "label": "إضافة مهمة جديدة",
+        "title": "العنوان",
+        "titlePH": "أدخل العنوان",
+        "user": "المستخدم",
+        "userPH": "أدخل اسم المستخدم",
+        "imagePath" : "مسار الصورة",
+        "deadline": "التاريخ",
+        "description": "الوصف",
+        "descriptionPH": "وصف المهمة ..."
+    },
+    "general": {
+        "loading": "يتم التحميل"
+    },
+    "login": {
+        "title": "تسجيل الدخول",
+        "email": "الإيميل",
+        "password": "كلمة السر",
+        "required": "الحقل مطلوب"
+    },
+    "header": {
+        "all-tasks": "جميع المهمات",
+        "users": "المستخدمين",
+        "logout": "تسجيل الخروج"
+    },
+    "toastr": {
+        "success-login": "تم تسجيل الدخول بنجاح",
+        "success-create": "تمت اضافة المهمة بنجاح",
+        "success-update": "تم التعديل بنجاح",
+        "success-delete": "تم الحذف بنجاح",
+        "success-delete-user": "تم حذف المستخدم بنجاح",
+        "error-delete-user" : "لايمكن حذف المستخدم حتى يكمل المهمات",
+        "success-change-status-user" : "تم تبديل الحالة بنجاح",
+        "error-change-status-user" : " لايمكن تبديل الحالة حتى يكمل المستخدم مهامه "
+    },
+    "buttons": {
+        "add-task": "إضافة مهمة",
+        "create-task": "إنشاء مهمة",
+        "update-task": "تعديل",
+        "delete-task": "حذف",
+        "close": "إغلاق",
+        "selectImage": "تحديد صورة",
+        "active":"نشط",
+        "in-active":"غير نشط"
+    },
+    "tooltip":{
+        "edit":"تعديل",
+        "delete":"حذف",
+        "active":"التغيير الى الوضع النشط",
+        "in-active":"التغيير الى الوضع غير النشط",
+        "close": "إغلاق"
+    },
+    "confirmation":{
+        "ok": "موافق",
+        "cancel":"الغاء",
+        "dialog":"مربع حوار",
+        "message": "هل أنت متأكد من ",
+        "message-logout": "تسجيل الخروج",
+        "message-delete-task":"حذف المهمة",
+        "message-delete-user":"حذف المستخدم",
+        "message-close": "الغاء التغييرات"
+    }
+}
