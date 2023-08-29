@@ -28,3 +28,8 @@ mat-icon{
 .pagination{
     font-weight:800;
  }
+
+ ::ng-deep .mat-sort-header-arrow{
+    color : rgb(233, 253, 3);
+    font-weight: 800;
+}

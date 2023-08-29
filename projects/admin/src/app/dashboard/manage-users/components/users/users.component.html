@@ -11,33 +11,38 @@
     </div>
   </form>
   <div class="listBox">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8  w-100 mt-2">
+    <table
+    mat-table
+    [dataSource]="dataSource"
+    class="mat-elevation-z8  w-100 mt-2"
+    matSort
+    (matSortChange)="sortData($event)">
 
-      <!-- Position Column -->
-      <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef> {{'forms.id' | translate}} </th>
-        <td mat-cell *matCellDef="let element;let index = index"> {{index + 1}} </td>
+      <!-- Id Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id"> {{'forms.id' | translate}} </th>
+        <td mat-cell *matCellDef="let id = index"> {{id + 1}} </td>
       </ng-container>
 
       <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> {{'forms.name' | translate}} </th>
-        <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+      <ng-container matColumnDef="username">
+        <th  *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> {{'forms.name' | translate}} </th>
+        <td  *matCellDef="let element"> {{element.username}} </td>
       </ng-container>
 
-      <!-- Weight Column -->
+      <!-- Email Column -->
       <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef> {{'forms.email' | translate}}</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by email"> {{'forms.email' | translate}}</th>
         <td mat-cell *matCellDef="let element"> {{element.email}} </td>
       </ng-container>
 
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="tasksAssigned">
-        <th mat-header-cell *matHeaderCellDef> {{'forms.task-assigned' | translate}} </th>
+      <!-- Task-Assigned Column -->
+      <ng-container matColumnDef="assignedTasks">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by tasksAssigned"> {{'forms.task-assigned' | translate}} </th>
         <td mat-cell *matCellDef="let element"> {{element.assignedTasks}} </td>
       </ng-container>
 
-
+      <!-- Actions Column -->
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef class="w-20"> </th>
         <td class="d-flex" mat-cell *matCellDef="let element; let index = index;">

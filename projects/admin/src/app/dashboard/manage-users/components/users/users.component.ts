@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -6,6 +6,9 @@ import { ToastrService } from 'ngx-toastr';
 import { UsersService, changeStatus } from '../../services/users.service';
 import { TasksService } from '../../../tasks-admin/services/tasks.service';
 import { ConfirmationComponent } from '../../../confirmation/confirmation.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, Sort } from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-users',
@@ -14,8 +17,10 @@ import { ConfirmationComponent } from '../../../confirmation/confirmation.compon
 })
 export class UsersComponent implements OnInit {
 
-  displayedColumns: string[] = ['position', 'name', 'email', 'tasksAssigned', 'actions'];
-  dataSource: any = [];
+  @ViewChild(MatSort) sort:MatSort
+
+  displayedColumns: string[] = ['id', 'username', 'email', 'assignedTasks', 'actions'];
+  dataSource:MatTableDataSource<any>;
   page: any = 1;
   totalItems: any;
   timeoutId:any;
@@ -27,7 +32,8 @@ export class UsersComponent implements OnInit {
     private serviceTasks: TasksService,
     private toastr: ToastrService,
     private translate: TranslateService,
-    public matDialog: MatDialog,
+    public  matDialog: MatDialog,
+    private liveAnnouncer:LiveAnnouncer,
     private router: Router) {
     this.getUsersFromBehaviorSubject();
   }
@@ -56,11 +62,11 @@ export class UsersComponent implements OnInit {
 
   }
 
-
   getUsersFromBehaviorSubject() {
     this.service.userData.subscribe((res: any) => {
-      this.dataSource = res.data;
+      this.dataSource = new MatTableDataSource<any>(res.data);
       this.totalItems = res.totalItems;
+      this.dataSource.sort = this.sort;
     })
   }
 
@@ -71,7 +77,7 @@ export class UsersComponent implements OnInit {
     })
     dialogRef.afterClosed().subscribe((res: any) => {
       if (this.serviceTasks.dialogConfirm == 'yes') {
-        if (this.dataSource[index].assignedTasks > 0) {
+        if (this.dataSource.data[index].assignedTasks > 0) {
           this.toastr.error(this.translate.instant('toastr.error-delete-user'))
         } else {
           this.service.deleteUser(id).subscribe((res: any) => {
@@ -88,7 +94,7 @@ export class UsersComponent implements OnInit {
   }
 
   changeUserStatus(status:any, id:string, index:number) {
-    if (this.dataSource[index].assignedTasks > 0) {
+    if (this.dataSource.data[index].assignedTasks > 0) {
       this.toastr.error(this.translate.instant('toastr.error-change-user-status'))
     } else {
       const model: changeStatus = {
@@ -101,6 +107,12 @@ export class UsersComponent implements OnInit {
          this.service.getUsersData(this.filteration);
 
       })
+    }
+  }
+
+  sortData(sortState:Sort){
+    if (sortState.direction){
+      this.liveAnnouncer.announce(sortState.direction);
     }
   }
 

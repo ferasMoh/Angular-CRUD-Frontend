@@ -1,14 +1,15 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { TasksService } from '../../services/tasks.service';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 import { TranslateService } from '@ngx-translate/core';
 import { UsersService } from '../../../manage-users/services/users.service';
 import { ConfirmationComponent } from '../../../confirmation/confirmation.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, Sort } from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 
 @Component({
@@ -18,13 +19,14 @@ import { ConfirmationComponent } from '../../../confirmation/confirmation.compon
 })
 export class ListTasksComponent implements OnInit {
 
+  @ViewChild(MatSort) sort: MatSort;
 
-  dataSource: any = [];
-  users:any = [];
+  dataSource: MatTableDataSource<any>;
+  users: any = [];
   timeoutId: any;
-  page:any = 1;
-  total:any;
-  filteration: any = { page:this.page, limit:10 };
+  page: any = 1;
+  total: any;
+  filteration: any = { page: this.page, limit: 10 };
 
   displayedColumns: string[] = [
     'image',
@@ -45,18 +47,35 @@ export class ListTasksComponent implements OnInit {
     private service: TasksService,
     public matDialog: MatDialog,
     private toastr: ToastrService,
-    private translate:TranslateService,
-    private userService:UsersService,
-  ) { 
+    private translate: TranslateService,
+    private userService: UsersService,
+    private liveAnnouncer: LiveAnnouncer
+  ) {
     this.getUsersFromBehaviorSubject();
-   }
+  }
 
   ngOnInit(): void {
     this.getUsers();
     this.getAllTasks();
   }
 
-  search(event: any) {
+  getAllTasks() {
+    this.service.getAllTasks(this.filteration).subscribe(
+      (result: any) => {
+        this.dataSource = new MatTableDataSource<any>(this.mappingTasks(result.tasks));
+        this.total = result.totalItems;
+        this.dataSource.sort = this.sort;
+      },
+    );
+  }
+
+  sortData(sortState: Sort) {
+    if (sortState.direction) {
+      this.liveAnnouncer.announce(sortState.direction);
+    }
+  }
+
+  search(event: any):void {
     this.filteration['keyword'] = event.value;
     this.page = 1;
     this.filteration['page'] = 1;
@@ -85,19 +104,11 @@ export class ListTasksComponent implements OnInit {
     this.page = 1;
     this.filteration['page'] = 1;
     this.filteration[type] = moment(event.value).format('DD/MM/YYYY');
-    if(type == 'toDate' && this.filteration['toDate'] !== 'Invalid date'){
-    this.getAllTasks();
+    if (type == 'toDate' && this.filteration['toDate'] !== 'Invalid date') {
+      this.getAllTasks();
     }
   }
 
-  getAllTasks() {
-    this.service.getAllTasks(this.filteration).subscribe(
-      (res: any) => {
-        this.dataSource = this.mappingTasks(res.tasks);
-        this.total = res.totalItems
-      },
-    );
-  }
 
   mappingTasks(data: any[]) {
     let newTasks = data.map((item) => {
@@ -140,47 +151,48 @@ export class ListTasksComponent implements OnInit {
     this.service.messageConfirm = this.translate.instant('confirmation.message-delete-task');
 
     const dialogRef = this.matDialog.open(ConfirmationComponent, {
-        width :'600px',
-        disableClose: true
+      width: '600px',
+      disableClose: true
     })
-  
-    dialogRef.afterClosed().subscribe((res:any) =>{
-      if(this.service.dialogConfirm == 'yes'){
+
+    dialogRef.afterClosed().subscribe((res: any) => {
+      if (this.service.dialogConfirm == 'yes') {
         this.service.deleteTask(id).subscribe(
-             (res) => {
-               this.toastr.success(this.translate.instant("toastr.success-delete"));
-               this.service.dialogConfirm == 'no'
-               this.getAllTasks();
-             },
-           )}
+          (res) => {
+            this.toastr.success(this.translate.instant("toastr.success-delete"));
+            this.service.dialogConfirm == 'no'
+            this.getAllTasks();
+          },
+        )
+      }
     })
 
   }
 
-  changePage(event:any){
+  changePage(event: any) {
     this.page = event;
     this.filteration['page'] = event;
     this.getAllTasks();
   }
 
-  getUsers(){
+  getUsers() {
     this.userService.getUsersData()
   }
 
-  getUsersFromBehaviorSubject(){
-    this.userService.userData.subscribe((res:any)=>{
+  getUsersFromBehaviorSubject() {
+    this.userService.userData.subscribe((res: any) => {
       this.users = this.usersMapping(res.data);
     })
   }
 
-  usersMapping(data:any){
-      let newUsers = data?.map((item:any) =>{
-          return {
-            name:item.username,
-            id:item._id
-          }
-      });
-      return newUsers;
+  usersMapping(data: any) {
+    let newUsers = data?.map((item: any) => {
+      return {
+        name: item.username,
+        id: item._id
+      }
+    });
+    return newUsers;
   }
-  
+
 }
