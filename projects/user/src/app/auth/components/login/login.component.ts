@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TranslateService } from '@ngx-translate/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -20,10 +21,12 @@ export class LoginComponent implements OnInit {
     private router:Router,
     private toastr:ToastrService,
     private translate : TranslateService,
-    private spinner:NgxSpinnerService) { }
+    private title:Title,
+    ) { }
   
   ngOnInit(): void {
     this.createForm()
+    this.title.setTitle('Tasks | Login')
   }
 
   createForm(){

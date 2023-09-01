@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationComponent } from '../../../confirmation/confirmation.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-task-details',
@@ -23,10 +24,12 @@ export class TaskDetailsComponent implements OnInit {
     private toastr: ToastrService,
     private translate: TranslateService,
     public matDialog:MatDialog,
+    private title:Title
   ) {
     this.route.paramMap.subscribe((res: any) => {
       this.taskId = res.params['id'];
-    })
+    });
+    this.title.setTitle('Tasks | Task details')
   }
 
   ngOnInit(): void {

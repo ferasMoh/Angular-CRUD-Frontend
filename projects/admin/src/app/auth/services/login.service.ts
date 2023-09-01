@@ -8,11 +8,13 @@ import { environment } from 'projects/admin/src/environments/environment';
 })
 export class LoginService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  logIn(model:Login){
-      return this.http.post(environment.baseApi.replace('tasks', 'auth') + '/login', model)
-   }
+  /*   Login data Post from backend server */
+
+  logIn(model: Login) {
+    return this.http.post(environment.baseApi.replace('tasks', 'auth') + '/login', model)
+  }
 
 
 }

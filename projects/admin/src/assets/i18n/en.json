@@ -18,7 +18,8 @@
         "user": "User",
         "deadline": "DeadLine Date",
         "status": "Status",
-        "actions": "Actions"
+        "actions": "Actions",
+        "select": "Select"
     },
     "addTask": {
         "label": "Add New Task",
@@ -70,7 +71,9 @@
         "delete":"Delete",
         "active":"Change to Active position",
         "in-active":"Change to In-Active position",
-        "close": "Close"
+        "close": "Close",
+        "select": "Select",
+        "select-all":"Select All"
     },
     "confirmation":{
         "ok": "Ok",

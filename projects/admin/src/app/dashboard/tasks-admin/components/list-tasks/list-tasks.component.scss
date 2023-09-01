@@ -32,11 +32,6 @@ table{
     width: 20%!important;
 }
 
-mat-icon{
-    cursor:pointer;
-    width:30px;
-    margin-left:5px;
-}
 
 .pagination{
    font-weight:800;
@@ -45,4 +40,10 @@ mat-icon{
 ::ng-deep .mat-sort-header-arrow{
     color : rgb(233, 253, 3);
     font-weight: 800;
+}
+
+mat-icon{
+    cursor:pointer;
+    width:30px;
+    margin-left:10px;
 }

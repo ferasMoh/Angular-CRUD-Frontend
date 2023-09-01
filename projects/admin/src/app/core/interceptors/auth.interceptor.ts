@@ -11,6 +11,8 @@ import { Observable } from 'rxjs';
 export class AuthInterceptor implements HttpInterceptor {
   constructor() { }
 
+  /*   This Interceptor will get Token from server */
+
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler

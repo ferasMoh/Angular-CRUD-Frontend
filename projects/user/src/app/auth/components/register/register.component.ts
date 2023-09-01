@@ -5,6 +5,7 @@ import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +18,10 @@ export class RegisterComponent implements OnInit {
     private service:LoginService,
     private toastr:ToastrService,
     private translate :TranslateService,
-    private router:Router) {}
+    private router:Router,
+    private title:Title) {
+      this.title.setTitle('Tasks | Register')
+    }
 
   registerForm!: FormGroup;
 

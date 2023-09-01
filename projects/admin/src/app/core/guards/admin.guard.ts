@@ -6,16 +6,20 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AdminGuard implements CanActivateChild {
-  constructor(private router:Router) { }
+  constructor(private router: Router) { }
+
+  /*   This guard will navigate you to login page if
+    the Token not found in local Storage */
+
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-     if('token' in localStorage){
+    if ('token' in localStorage) {
       return true;
-     }else{
+    } else {
       this.router.navigate(['/login']);
       return false;
-     }
+    }
   }
-  
+
 }

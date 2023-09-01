@@ -10,7 +10,8 @@ import { ConfirmationComponent } from '../../../confirmation/confirmation.compon
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-
+import { Title } from '@angular/platform-browser';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-list-tasks',
@@ -27,14 +28,17 @@ export class ListTasksComponent implements OnInit {
   page: any = 1;
   total: any;
   filteration: any = { page: this.page, limit: 10 };
+  selection = new SelectionModel<any>(true, []);
+  selectedRows:any[] = [];
 
   displayedColumns: string[] = [
+    'select',
     'image',
     'title',
     'user',
     'deadline',
     'status',
-    'actions',
+    'actions'
   ];
 
   status: any = [
@@ -49,15 +53,67 @@ export class ListTasksComponent implements OnInit {
     private toastr: ToastrService,
     private translate: TranslateService,
     private userService: UsersService,
-    private liveAnnouncer: LiveAnnouncer
+    private liveAnnouncer: LiveAnnouncer,
+    private title:Title,
   ) {
     this.getUsersFromBehaviorSubject();
+    this.title.setTitle('Tasks | All Tasks')
   }
 
   ngOnInit(): void {
     this.getUsers();
     this.getAllTasks();
   }
+
+  select(row:any, index:number){
+    if(this.selection.isSelected(row)){
+      this.selectedRows.push(row)
+      //console.log(this.selectedRows)
+    }
+    if(!this.selection.isSelected(row)){
+      this.selectedRows.splice(index,1)
+      //console.log(this.selectedRows)
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  isAllSelected(){
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource?.data.length;
+    return numSelected === numRows;
+  }
+
+  toggleAllRows(){
+    if(this.isAllSelected()){
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.dataSource?.data);
+    console.log(this.selection.select(...this.dataSource?.data))
+  }
+
+  checkboxLabel(row?:any):string{
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+
+  }
+
+
 
   getAllTasks() {
     this.service.getAllTasks(this.filteration).subscribe(

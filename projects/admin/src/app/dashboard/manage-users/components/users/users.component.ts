@@ -9,6 +9,7 @@ import { ConfirmationComponent } from '../../../confirmation/confirmation.compon
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-users',
@@ -34,8 +35,10 @@ export class UsersComponent implements OnInit {
     private translate: TranslateService,
     public  matDialog: MatDialog,
     private liveAnnouncer:LiveAnnouncer,
+    private title:Title,
     private router: Router) {
     this.getUsersFromBehaviorSubject();
+    this.title.setTitle('Tasks | All Users')
   }
 
   ngOnInit(): void {
