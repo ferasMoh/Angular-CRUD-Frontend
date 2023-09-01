@@ -2,9 +2,9 @@
 this is an CRUD project and its talking about an admin who distributes tasks to his users,
 We divided the project into two parts ( admin part and user part )
 admin part call it by this command ( ng serve admin )
-user part call it by this command ( ng server user )
+user part call it by this command ( ng server user ).
 
-#Login
+##Login
 * in admin part we have one admin is already exist
     email : feras@admin.com
     password : 12345
@@ -15,25 +15,25 @@ user part call it by this command ( ng server user )
 	password : 12345
 	email : anas@user.com
 	password : 12345
-also you can add more users by go to user part and navigate to register page then fill all fields
+also you can add more users by go to user part and navigate to register page then fill all fields.
 
 
-#Tasks
+##Tasks
 in admin part you can add tasks to users ,
-when you add a task all this task data will show inside a mat-table inside admin part ,
+when you add a task all this task data will show inside a mat-table in admin part ,
 and when user open his account it will see his tasks inside a html card ,
 and when user complete his task he can press on complete button to completed ,
 then this task it will show as completed Task inside status column in admin part .
 
-#Users
+##Users
 in admin part you can press on Users button to see all users ,
 you can delete user from database and change his status ( Active , In-active ),
 if user status is In-active then user can't login to his account
-if user tasks is not finished then admin can't delete user until he finish his tasks
+if user tasks is not finished then admin can't delete user until he finish his tasks.
 
 
 
-# CRUD
+## CRUD
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.7.
 
