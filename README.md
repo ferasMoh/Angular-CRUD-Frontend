@@ -3,7 +3,7 @@ this is an CRUD project and its talking about an admin who distributes tasks to 
 We divided the project into two parts ( admin part and user part )
 admin part call it by this command ( ng serve admin )
    Port : 3000  ,   Link : http://localhost:3000/ ,
-user part call it by this command ( ng server user )
+user part call it by this command ( ng serve user )
    Port : 4000  ,   Link : http://localhost:4000/ .
 
 ## Login
