@@ -23,15 +23,15 @@ also you can add more users by go to user part and navigate to register page the
 ## Tasks
 in admin part you can add tasks to users ,
 when you add a task all this task data will show inside a mat-table in admin part ,
-and when user open his account it will see his tasks inside a html card ,
+and when user open his account he will see his tasks inside a html card ,
 and when user complete his task he can press on complete button to completed ,
-then this task it will show as completed Task inside status column in admin part .
+then this task will show as completed Task inside status column in admin part .
 
 ## Users
 in admin part you can press on Users button to see all users ,
 you can delete user from database and change his status ( Active , In-active ),
 if user status is In-active then user can't login to his account
-if user tasks is not finished then admin can't delete user until he finish his tasks.
+if user tasks is not finished his tasks then admin can't delete this user until he finish his tasks.
 
 
 
