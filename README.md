@@ -2,7 +2,9 @@
 this is an CRUD project and its talking about an admin who distributes tasks to his users,
 We divided the project into two parts ( admin part and user part )
 admin part call it by this command ( ng serve admin )
-user part call it by this command ( ng server user ).
+   Port : 3000  ,   Link : http://localhost:3000/ ,
+user part call it by this command ( ng server user )
+   Port : 4000  ,   Link : http://localhost:4000/ .
 
 ## Login
 * in admin part we have one admin is already exist
@@ -37,9 +39,6 @@ if user tasks is not finished then admin can't delete user until he finish his t
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.7.
 
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
