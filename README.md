@@ -1,4 +1,8 @@
-# Description
+# Tasks CRUD
+Tasks Project
+https://github.com/ferasMoh/crud-Frontend
+
+## Description
 this is an CRUD project and its talking about an admin who distributes tasks to his users,
 We divided the project into two parts ( admin part and user part )
 admin part call it by this command ( ng serve admin )
