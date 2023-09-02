@@ -196,8 +196,8 @@ export class ListTasksComponent implements OnInit {
       disableClose: true,
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result == true) {
+    dialogRef.afterClosed().subscribe(res => {
+      if (res == true) {
         this.getAllTasks();
       }
     });

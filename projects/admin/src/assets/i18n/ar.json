@@ -6,11 +6,7 @@
         "status": "الحالة",
         "date": "أدخل نطاق التاريخ",
         "datePH-start": "بداية التاريخ",
-        "datePH-end": "نهاية التاريخ",
-        "id" : "الرقم",
-        "name" : "الإسم",
-        "email" : "الإيميل",
-        "task-assigned" : "تعيين المهمة"
+        "datePH-end": "نهاية التاريخ"
     },
     "colLabel": {
         "image": "الصورة ",
@@ -19,10 +15,16 @@
         "deadline": "التاريخ",
         "status": "الحالة",
         "actions": "الحدث",
-        "select": "تحديد"
+        "select": "تحديد",
+        "id" : "الرقم",
+        "name" : "الإسم",
+        "email" : "الإيميل",
+        "task-assigned" : "المهام الموكلة",
+        "task-required" : "مهمة متبقية"
     },
     "addTask": {
         "label": "إضافة مهمة جديدة",
+        "edit-label": "تعديل المهمة",
         "title": "العنوان",
         "titlePH": "أدخل العنوان",
         "user": "المستخدم",
@@ -33,7 +35,9 @@
         "descriptionPH": "وصف المهمة ..."
     },
     "general": {
-        "loading": "يتم التحميل"
+        "loading": "يتم التحميل",
+        "pagination-user" : "مستخدم",
+        "pagination-task" : "مهمة"
     },
     "login": {
         "title": "تسجيل الدخول",

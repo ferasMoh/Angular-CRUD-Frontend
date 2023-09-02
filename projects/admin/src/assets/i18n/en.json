@@ -6,11 +6,7 @@
         "status": "Status",
         "date": "Enter a date range",
         "datePH-start": "Start Date",
-        "datePH-end": "End Date",
-        "id" : "Id",
-        "name" : "Name",
-        "email" : "Email",
-        "task-assigned" : "Task Assigned"
+        "datePH-end": "End Date"
     },
     "colLabel": {
         "image": "Image",
@@ -19,10 +15,16 @@
         "deadline": "DeadLine Date",
         "status": "Status",
         "actions": "Actions",
-        "select": "Select"
+        "select": "Select",
+        "id" : "Id",
+        "name" : "Name",
+        "email" : "Email",
+        "task-assigned" : "Task Assigned",
+        "task-required" : "Required"
     },
     "addTask": {
         "label": "Add New Task",
+        "edit-label": "Edit Task",
         "title": "Title",
         "titlePH": "title",
         "user": "User",
@@ -33,7 +35,9 @@
         "descriptionPH": "task description ..."
     },
     "general": {
-        "loading": "Loading"
+        "loading": "Loading",
+        "pagination-user" : "User",
+        "pagination-task" : "Task"
     },
     "login": {
         "title": "Login",

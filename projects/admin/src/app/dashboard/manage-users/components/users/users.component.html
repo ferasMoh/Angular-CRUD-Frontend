@@ -20,26 +20,26 @@
 
       <!-- Id Column -->
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id"> {{'forms.id' | translate}} </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id"> {{'colLabel.id' | translate}} </th>
         <td mat-cell *matCellDef="let id = index"> {{id + 1}} </td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="username">
-        <th  *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> {{'forms.name' | translate}} </th>
+        <th  *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> {{'colLabel.name' | translate}} </th>
         <td  *matCellDef="let element"> {{element.username}} </td>
       </ng-container>
 
       <!-- Email Column -->
       <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by email"> {{'forms.email' | translate}}</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by email"> {{'colLabel.email' | translate}}</th>
         <td mat-cell *matCellDef="let element"> {{element.email}} </td>
       </ng-container>
 
       <!-- Task-Assigned Column -->
       <ng-container matColumnDef="assignedTasks">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by tasksAssigned"> {{'forms.task-assigned' | translate}} </th>
-        <td mat-cell *matCellDef="let element"> {{element.assignedTasks}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by tasksAssigned"> {{'colLabel.task-assigned' | translate}} </th>
+        <td mat-cell *matCellDef="let element"> {{element.assignedTasks}} {{'colLabel.task-required' | translate}} </td>
       </ng-container>
 
       <!-- Actions Column -->
@@ -76,7 +76,7 @@
     </table>
     <div class="pagination d-flex justify-content-center my-4">
       <pagination-controls (pageChange)="changePage($event)" id="tasks"></pagination-controls>
-      <p class="my-1">\ {{totalItems}} Users \</p>
+      <p class="my-1">\ {{totalItems}} {{'general.pagination-user' | translate}} \</p>
     </div>
   </div>
 </div>

@@ -24,6 +24,7 @@ export class AddTaskComponent implements OnInit {
   imgPath: string = '';
   formValues:any;
   users:any = [];
+  hasChanges:boolean = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -49,8 +50,8 @@ export class AddTaskComponent implements OnInit {
       ],
       userId: [this.data?.userId._id || '', Validators.required],
       image: [this.data?.image || '', Validators.required],
-      description: [this.data?.description || '', Validators.required],
       deadline: [ this.data ? new Date(this.data?.deadline.split('/').reverse().join('/')).toISOString() : '', Validators.required],
+      description: [this.data?.description || '', Validators.required],
     });
 
     this.formValues = this.newTaskForm.value
@@ -81,20 +82,29 @@ export class AddTaskComponent implements OnInit {
     );
   }
 
-  close() {
-    let hasChanges:boolean = false;
+  compareValues(){
     Object.keys(this.formValues).forEach((item)=>{
-       if(this.formValues[item] !== this.newTaskForm.value[item]){
-          hasChanges = true;
-        }
-      })
+      if(this.formValues[item] !== this.newTaskForm.value[item]){
+        this.hasChanges = true;
+       }
+     })
+  }
 
-      if(hasChanges){
+  close() {
+    Object.keys(this.formValues).forEach((item)=>{
+      if(this.formValues[item] !== this.newTaskForm.value[item]){
+        this.hasChanges = true;
+       }
+     })
+      if(this.hasChanges){
         this.service.messageConfirm = this.translate.instant('confirmation.message-close');
         const dialogRef = this.matDialog.open(ConfirmationComponent, {
           width: '600px',
           disableClose: true
         });
+        dialogRef.afterClosed().subscribe(res => {
+          this.hasChanges = false;
+        })
 
       }else{
         this.dialog.close();

@@ -1,11 +1,12 @@
 <div class="p-4">
     <header class="d-flex justify-content-between align-items-center">
-        <h1 class="m-0">{{'addTask.label' | translate}}</h1>
+        <h1 *ngIf="!data" class="m-0">{{'addTask.label' | translate}}</h1>
+        <h1 *ngIf="data" class="m-0">{{'addTask.edit-label' | translate}}</h1>
             <div class="icon-close">
                 <mat-icon matTooltip="{{'tooltip.close' | translate}}" (click)="close()">close</mat-icon>
              </div>
     </header>
-    <form [formGroup]="newTaskForm">
+    <form [formGroup]="newTaskForm" (keyup)="compareValues()">
         <div class="row mt-3">
             <div class="col-md-12">
                 <mat-form-field appearance="outline" class="w-100">
@@ -51,7 +52,7 @@
             <button *ngIf="!data" mat-flat-button color="primary" class="py-1 px-5 mx-2" (click)="createTask()" [disabled]="newTaskForm.invalid">
                 {{'buttons.create-task' | translate}}
             </button>
-            <button *ngIf="data" mat-flat-button color="primary" class="py-1 px-5 mx-2" (click)="updateTask()" [disabled]="newTaskForm.invalid">
+            <button *ngIf="data" mat-flat-button color="primary" class="py-1 px-5 mx-2" (click)="updateTask()" [disabled]="!hasChanges">
                 {{'buttons.update-task' | translate}}
             </button>
 
