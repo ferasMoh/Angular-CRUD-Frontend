@@ -18,7 +18,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     private toastr: ToastrService,
     private router: Router) { }
 
-  /*   When the error occurs this interceptor will appear a message
+  /*   When the error occurs this interceptor will appearing a message
        and remove token then navigate you to login page
   */
 

@@ -4,6 +4,9 @@ import { LayoutComponent } from './layout/layout.component';
 import { AdminGuard } from '../core/guards/admin.guard';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 
+/* Default routing to Layout component  */
+/* Check Guard if true you can access to Paths is false navigate to Login Page */
+
 const routes: Routes = [
   {
     path: '',

@@ -8,10 +8,10 @@ import {
 import { TasksService } from '../../services/tasks.service';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { TranslateService } from '@ngx-translate/core';
 import { UsersService } from '../../../manage-users/services/users.service';
 import { ConfirmationComponent } from '../../../confirmation/confirmation.component';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-add-task',
@@ -20,11 +20,11 @@ import { ConfirmationComponent } from '../../../confirmation/confirmation.compon
 })
 export class AddTaskComponent implements OnInit {
 
-  newTaskForm!: FormGroup;
+  addTaskForm: FormGroup;
+  editTaskForm: any[] = [];
   imgPath: string = '';
-  formValues:any;
-  users:any = [];
-  hasChanges:boolean = false;
+  users: any = [];
+  hasChanges: boolean = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -33,35 +33,86 @@ export class AddTaskComponent implements OnInit {
     public matDialog: MatDialog,
     private service: TasksService,
     private toastr: ToastrService,
-    private spinner: NgxSpinnerService,
-    private translate:TranslateService,
-    private userService:UsersService,
+    private translate: TranslateService,
+    private userService: UsersService,
   ) { this.getUsersFromBehaviorSubject(); }
 
   ngOnInit(): void {
     this.createFormGroup();
   }
 
+  /* Create Form Group */
+  /* In Add Task dialog fields will be empty */
+  /* In Edit Task dialog fields will be filled with row data */
   createFormGroup() {
-    this.newTaskForm = this.fb.group({
+    this.addTaskForm = this.fb.group({
       title: [
         this.data?.title || '',
         [Validators.required, Validators.minLength(1)],
       ],
       userId: [this.data?.userId._id || '', Validators.required],
       image: [this.data?.image || '', Validators.required],
-      deadline: [ this.data ? new Date(this.data?.deadline.split('/').reverse().join('/')).toISOString() : '', Validators.required],
+      deadline: [this.data ? new Date(this.data?.deadline.split('/').reverse().join('/')).toISOString() : '', Validators.required],
       description: [this.data?.description || '', Validators.required],
     });
 
-    this.formValues = this.newTaskForm.value
+    this.editTaskForm = this.addTaskForm.value
   }
 
+  /*   Compare if EditTask fields and addTask fields have the same values
+       then hasChange value will be true   */
+  compareValues() {
+    Object.keys(this.editTaskForm).forEach((item: any) => {
+      if (this.editTaskForm[item] !== this.addTaskForm.value[item]) {
+        this.hasChanges = true;
+      }
+    })
+  }
+
+  /*   Create new array to catch only username and id from users service */
+  usersMapping(data: any) {
+    let userMapping = data?.map((item: any) => {
+      return {
+        name: item.username,
+        id: item._id,
+      }
+    });
+    return userMapping;
+  }
+
+  /* Call all users (username and id) after mapping when you open the dialog */
+  getUsersFromBehaviorSubject() {
+    this.userService.userData.subscribe((res: any) => {
+      this.users = this.usersMapping(res.data);
+    })
+  }
+
+  /*   Select Image from your PC    */
+  /*   when you finish adding task the image will added to database in server */
   selectImage(event: any) {
     this.imgPath = event.target.value;
-    this.newTaskForm.get('image')?.setValue(event.target.files[0]);
+    this.addTaskForm.get('image')?.setValue(event.target.files[0]);
+    this.compareValues()
   }
 
+  /*   Change date fomrat like this DD/MM/YYYY */
+  prepareFormDate() {
+    let newDate = moment(this.addTaskForm.value['deadline']).format(
+      'DD/MM/YYYY'
+    );
+    let formData = new FormData();
+    Object.entries(this.addTaskForm.value).forEach(([key, value]: any) => {
+      if (key == 'deadline') {
+        formData.append(key, newDate);
+      } else {
+        formData.append(key, value);
+      }
+    });
+    return formData;
+  }
+
+  /*   Create New Task after filling all the required fields */
+  /*   Show success message then close the dialog */
   createTask() {
     let model = this.prepareFormDate();
     this.service.createTask(model).subscribe(
@@ -72,9 +123,11 @@ export class AddTaskComponent implements OnInit {
     );
   }
 
-  updateTask() {
+  /*   Edit Task */
+  /*   Show success message then close the dialog */
+  editTask() {
     let model = this.prepareFormDate();
-    this.service.updateTask(model, this.data._id).subscribe(
+    this.service.editTask(model, this.data._id).subscribe(
       (res) => {
         this.toastr.success(this.translate.instant("toastr.success-update"));
         this.dialog.close(true);
@@ -82,65 +135,20 @@ export class AddTaskComponent implements OnInit {
     );
   }
 
-  compareValues(){
-    Object.keys(this.formValues).forEach((item)=>{
-      if(this.formValues[item] !== this.newTaskForm.value[item]){
-        this.hasChanges = true;
-       }
-     })
-  }
-
+  /*   Close dialog */
+  /*   if Task data has Changed then show confirmation dialog */
   close() {
-    Object.keys(this.formValues).forEach((item)=>{
-      if(this.formValues[item] !== this.newTaskForm.value[item]){
-        this.hasChanges = true;
-       }
-     })
-      if(this.hasChanges){
-        this.service.messageConfirm = this.translate.instant('confirmation.message-close');
-        const dialogRef = this.matDialog.open(ConfirmationComponent, {
-          width: '600px',
-          disableClose: true
-        });
-        dialogRef.afterClosed().subscribe(res => {
-          this.hasChanges = false;
-        })
-
-      }else{
-        this.dialog.close();
-      }
-  }
-
-  prepareFormDate() {
-    let newDate = moment(this.newTaskForm.value['deadline']).format(
-      'DD/MM/YYYY'
-    );
-
-    let formData = new FormData();
-    Object.entries(this.newTaskForm.value).forEach(([key, value]: any) => {
-      if (key == 'deadline') {
-        formData.append(key, newDate);
-      } else {
-        formData.append(key, value);
-      }
-    });
-    return formData;
-  }
-  
-  getUsersFromBehaviorSubject(){
-    this.userService.userData.subscribe((res:any)=>{
-      this.users = this.usersMapping(res.data);
-    })
-  }
-
-  usersMapping(data:any){
-      let newArray = data?.map((item:any) =>{
-          return {
-            name:item.username,
-            id:item._id,
-          }
+    this.compareValues();
+    if (this.hasChanges) {
+      this.service.messageConfirm = this.translate.instant('confirmation.message-close');
+      const dialogRef = this.matDialog.open(ConfirmationComponent, {
+        width: '600px',
+        disableClose: true
       });
-      return newArray;
+
+    } else {
+      this.dialog.close();
+    }
   }
 
 }

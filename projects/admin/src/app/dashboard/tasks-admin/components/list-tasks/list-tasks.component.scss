@@ -1,6 +1,7 @@
 button {
     color: #FFF;
     margin: 0 5px;
+
     &.addTask {
         background-color: #ca085a;
         color: #FFF;
@@ -9,18 +10,20 @@ button {
     }
 }
 
-table{
-    img{
-        width: 70px!important;;
-        height:70px!important;
-        padding:5px;
+table {
+    img {
+        width: 70px !important;
+        ;
+        height: 70px !important;
+        padding: 5px;
     }
 }
 
 :host ::ng-deep {
     table {
         thead {
-            background-color: #bc1059!important;
+            background-color: #bc1059 !important;
+
             .mat-header-cell {
                 color: #FFF;
             }
@@ -29,21 +32,21 @@ table{
 }
 
 .w-20 {
-    width: 20%!important;
+    width: 20% !important;
 }
 
 
-.pagination{
-   font-weight:800;
-}
-
-::ng-deep .mat-sort-header-arrow{
-    color : rgb(233, 253, 3);
+.pagination {
     font-weight: 800;
 }
 
-mat-icon{
-    cursor:pointer;
-    width:30px;
-    margin-left:10px;
+::ng-deep .mat-sort-header-arrow {
+    color: rgb(233, 253, 3);
+    font-weight: 800;
+}
+
+mat-icon {
+    cursor: pointer;
+    width: 30px;
+    margin-left: 10px;
 }

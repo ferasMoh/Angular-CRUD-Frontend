@@ -14,24 +14,25 @@ export class ConfirmationComponent {
   constructor(
     public dialog: MatDialogRef<ConfirmationComponent>,
     public matDialog: MatDialog,
-    private service:TasksService,
-  ){}
-  
+    private service: TasksService,
+  ) { }
 
-  messageConfirm:string = this.service.messageConfirm;
-  
 
-  confirm(){
+  messageConfirm: string = this.service.messageConfirm;
+
+  /*   Ok button for Closing All dialogs */
+  confirm() {
     this.service.dialogConfirm = 'yes';
-    this.dialog.close();
+    this.matDialog.closeAll();
     this.service.messageConfirm = '';
   }
 
-  cancel(){
+  /*   Cancel button */
+  cancel() {
     this.service.dialogConfirm = 'no';
     this.service.messageConfirm = '';
     this.dialog.close();
   }
 
-  
+
 }

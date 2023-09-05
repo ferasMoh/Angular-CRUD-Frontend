@@ -7,7 +7,7 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./page-not-found.component.scss']
 })
 export class PageNotFoundComponent {
-   constructor(private title:Title){
+  constructor(private title: Title) {
     this.title.setTitle('Tasks | Bad Url')
-   }
+  }
 }

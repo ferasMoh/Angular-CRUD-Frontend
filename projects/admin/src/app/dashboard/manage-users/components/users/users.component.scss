@@ -1,7 +1,8 @@
 :host ::ng-deep {
+
     table {
         thead {
-            background-color: #bc1059!important;
+            background-color: #bc1059 !important;
             .mat-header-cell {
                 color: #FFF;
             }
@@ -10,26 +11,25 @@
 }
 
 .w-20 {
-    width: 20%!important;
+    width: 20% !important;
 }
 
-mat-icon{
-    cursor:pointer;
+mat-icon {
+    cursor: pointer;
     margin-top: 15px;
     margin-left: 10px;
-
 }
 
-.statusSpan{
+.statusSpan {
     font-weight: 580;
     margin-left: 7px;
 }
 
-.pagination{
-    font-weight:800;
- }
+.pagination {
+    font-weight: 800;
+}
 
- ::ng-deep .mat-sort-header-arrow{
-    color : rgb(233, 253, 3);
+::ng-deep .mat-sort-header-arrow {
+    color: rgb(233, 253, 3);
     font-weight: 800;
 }

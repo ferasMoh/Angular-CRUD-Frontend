@@ -51,6 +51,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 })
 
 export class AppModule { }
+
+/* Call Translate to the Site */
 export function HttpLoaderFactory(http:HttpClient):TranslateHttpLoader {
   return new TranslateHttpLoader(http);
 }

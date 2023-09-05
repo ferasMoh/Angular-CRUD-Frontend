@@ -8,14 +8,16 @@ import { environment } from 'projects/user/src/environments/environment';
 })
 export class LoginService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  createUser(model:CreateAccount){
+  /* Login User Account Process */
+  createUser(model: CreateAccount) {
     return this.http.post(environment.baseApi.replace('tasks', 'auth') + '/createAccount', model)
   }
 
-  login(model:Login){
-    return this.http.post(environment.baseApi.replace('tasks','auth') + '/login',model)
+  /* Login process */
+  login(model: Login) {
+    return this.http.post(environment.baseApi.replace('tasks', 'auth') + '/login', model)
   }
 
 }

@@ -18,53 +18,46 @@ import { Title } from '@angular/platform-browser';
 })
 export class UsersComponent implements OnInit {
 
-  @ViewChild(MatSort) sort:MatSort
+  @ViewChild(MatSort) sort: MatSort
 
   displayedColumns: string[] = ['id', 'username', 'email', 'assignedTasks', 'actions'];
-  dataSource:MatTableDataSource<any>;
+  dataSource: MatTableDataSource<any>;
   page: any = 1;
   totalItems: any;
-  timeoutId:any;
-  filteration:any = { page:this.page, limit:10 ,name:'' };
-  empty:any = '';
+  timeoutId: any;
+  filteration: any = { page: this.page, limit: 10, name: '' };
+  empty: any = '';
 
   constructor(
     private service: UsersService,
     private serviceTasks: TasksService,
     private toastr: ToastrService,
     private translate: TranslateService,
-    public  matDialog: MatDialog,
-    private liveAnnouncer:LiveAnnouncer,
-    private title:Title,
+    public matDialog: MatDialog,
+    private liveAnnouncer: LiveAnnouncer,
+    private title: Title,
     private router: Router) {
     this.getUsersFromBehaviorSubject();
     this.title.setTitle('Tasks | All Users')
   }
 
   ngOnInit(): void {
-     this.service.getUsersData(this.filteration);
-
+    this.service.getUsersData(this.filteration);
   }
 
-  search(event:any) {
+  /*   Search By Name */
+  search(event: any) {
     this.filteration.name = event.value;
     this.filteration.page = 1;
     this.page = 1;
     clearTimeout(this.timeoutId);
     this.timeoutId = setTimeout(() => {
-       this.service.getUsersData(this.filteration);
-
+      this.service.getUsersData(this.filteration);
     }, 500);
-
   }
 
-  changePage(event: any) {
-    this.page = event;
-    this.filteration['page'] = event;
-     this.service.getUsersData(this.filteration);
-
-  }
-
+  /* Get Users from server */
+  /* put Users inside dataSource array then call them by mat-table */
   getUsersFromBehaviorSubject() {
     this.service.userData.subscribe((res: any) => {
       this.dataSource = new MatTableDataSource<any>(res.data);
@@ -73,6 +66,15 @@ export class UsersComponent implements OnInit {
     })
   }
 
+  /* Sort column data by clicking on arrow */
+  sortData(sortState: Sort) {
+    if (sortState.direction) {
+      this.liveAnnouncer.announce(sortState.direction);
+    }
+  }
+
+  /* Delete User from server */
+  /* Open confirmation dialog */
   deleteUser(id: string, index: number) {
     this.serviceTasks.messageConfirm = this.translate.instant('confirmation.message-delete-user');
     const dialogRef = this.matDialog.open(ConfirmationComponent, {
@@ -87,7 +89,7 @@ export class UsersComponent implements OnInit {
             this.page = 1;
             this.toastr.success(this.translate.instant('toastr.success-delete-user'))
             this.serviceTasks.dialogConfirm == 'no'
-             this.service.getUsersData(this.filteration);
+            this.service.getUsersData(this.filteration);
 
           })
         }
@@ -96,7 +98,8 @@ export class UsersComponent implements OnInit {
 
   }
 
-  changeUserStatus(status:any, id:string, index:number) {
+  /* Chnage User Status ( Active & In-Active ) */
+  changeUserStatus(status: any, id: string, index: number) {
     if (this.dataSource.data[index].assignedTasks > 0) {
       this.toastr.error(this.translate.instant('toastr.error-change-user-status'))
     } else {
@@ -107,16 +110,16 @@ export class UsersComponent implements OnInit {
       this.service.changeStatus(model).subscribe((res: any) => {
         this.page = 1;
         this.toastr.success(this.translate.instant('toastr.success-change-user-status'))
-         this.service.getUsersData(this.filteration);
-
+        this.service.getUsersData(this.filteration);
       })
     }
   }
 
-  sortData(sortState:Sort){
-    if (sortState.direction){
-      this.liveAnnouncer.announce(sortState.direction);
-    }
+  /* Switch between table pages in pagination bar */
+  changePage(event: any) {
+    this.page = event;
+    this.filteration['page'] = event;
+    this.service.getUsersData(this.filteration);
   }
 
 }

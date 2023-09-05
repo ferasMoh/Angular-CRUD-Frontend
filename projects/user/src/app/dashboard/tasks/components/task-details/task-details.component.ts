@@ -23,8 +23,8 @@ export class TaskDetailsComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService,
     private translate: TranslateService,
-    public matDialog:MatDialog,
-    private title:Title
+    public matDialog: MatDialog,
+    private title: Title
   ) {
     this.route.paramMap.subscribe((res: any) => {
       this.taskId = res.params['id'];
@@ -36,20 +36,25 @@ export class TaskDetailsComponent implements OnInit {
     this.gettaskDetails();
   }
 
+  /*   Show Task Details */
   gettaskDetails() {
     this.service.taskDetails(this.taskId).subscribe((res: any) => {
       this.taskDetails = res.tasks
     })
   }
 
+
+  /*   Complete Task 
+       Open confiramtion dialog
+       Task will be hidden from user interface */
   complete() {
     this.service.messageConfirm = this.translate.instant('confirmation.message-complete');
-    const dialogRef = this.matDialog.open(ConfirmationComponent,{
+    const dialogRef = this.matDialog.open(ConfirmationComponent, {
       width: '650px',
     })
 
-    dialogRef.afterClosed().subscribe((res:any)=>{
-      if(this.service.dialogConfirm == 'yes'){
+    dialogRef.afterClosed().subscribe((res: any) => {
+      if (this.service.dialogConfirm == 'yes') {
         const model = {
           id: this.taskId
         }

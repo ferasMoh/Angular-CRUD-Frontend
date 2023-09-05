@@ -12,6 +12,10 @@ export class AppComponent {
   lang: any;
 
   constructor(public translate: TranslateService) {
+
+    /*  if arabic language in localStorage call it, 
+        Otherwise call default language (english)    */
+        
     if ('language' in localStorage) {
       this.lang = localStorage.getItem('language');
       translate.use(this.lang)

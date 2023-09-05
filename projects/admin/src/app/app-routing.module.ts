@@ -3,21 +3,23 @@ import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
-  {path:'',
-  loadChildren: () => import(`./dashboard/dashboard.module`).then(m => m.DashboardModule)
+  {
+    path: '',
+    loadChildren: () => import(`./dashboard/dashboard.module`).then(m => m.DashboardModule)
   },
-  {path:'login',
-  loadChildren: () => import(`./auth/auth.module`).then(m => m.AuthModule)
+  {
+    path: 'login',
+    loadChildren: () => import(`./auth/auth.module`).then(m => m.AuthModule)
   },
-      {
-        path: '**',
-        component: PageNotFoundComponent
-      },
+  {
+    path: '**',
+    component: PageNotFoundComponent
+  },
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes ,  { useHash: false })],
+  imports: [RouterModule.forRoot(routes, { useHash: false })],
   exports: [RouterModule]
 })
 

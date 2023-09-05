@@ -10,13 +10,17 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent {
 
   title = 'angulartasks';
-  lang:any;
-  constructor(public translate:TranslateService){
-     if('language' in localStorage){
+  lang: any;
+  constructor(public translate: TranslateService) {
+
+    /*  if arabic language in localStorage call it, 
+    Otherwise call default language (english)    */
+    
+    if ('language' in localStorage) {
       this.lang = localStorage.getItem('language');
       translate.use(this.lang);
-     }else{
+    } else {
       translate.use(this.translate.defaultLang)
-     }
+    }
   }
 }

@@ -29,8 +29,9 @@ export class ListTasksComponent implements OnInit {
   total: any;
   filteration: any = { page: this.page, limit: 10 };
   selection = new SelectionModel<any>(true, []);
-  selectedRows:any[] = [];
+  selectedRows: any[] = [];
 
+  /*   Tabel Columns Header Definitions */
   displayedColumns: string[] = [
     'select',
     'image',
@@ -41,6 +42,7 @@ export class ListTasksComponent implements OnInit {
     'actions'
   ];
 
+  /*   Status Array in Selection Form */
   status: any = [
     { name: '' },
     { name: 'Complete' },
@@ -54,7 +56,7 @@ export class ListTasksComponent implements OnInit {
     private translate: TranslateService,
     private userService: UsersService,
     private liveAnnouncer: LiveAnnouncer,
-    private title:Title,
+    private title: Title,
   ) {
     this.getUsersFromBehaviorSubject();
     this.title.setTitle('Tasks | All Tasks')
@@ -65,47 +67,36 @@ export class ListTasksComponent implements OnInit {
     this.getAllTasks();
   }
 
-  select(row:any, index:number){
-    if(this.selection.isSelected(row)){
+  /*   Select Row by checkbox */
+  select(row: any, index: number) {
+    if (this.selection.isSelected(row)) {
       this.selectedRows.push(row)
       //console.log(this.selectedRows)
     }
-    if(!this.selection.isSelected(row)){
-      this.selectedRows.splice(index,1)
+    if (!this.selection.isSelected(row)) {
+      this.selectedRows.splice(index, 1)
       //console.log(this.selectedRows)
     }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  isAllSelected(){
+  /*  Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource?.data.length;
     return numSelected === numRows;
   }
 
-  toggleAllRows(){
-    if(this.isAllSelected()){
+  /* Selects all rows if they are not all selected; otherwise clear selection  */
+  toggleAllRows() {
+    if (this.isAllSelected()) {
       this.selection.clear();
       return;
     }
-
     this.selection.select(...this.dataSource?.data);
-    console.log(this.selection.select(...this.dataSource?.data))
   }
 
-  checkboxLabel(row?:any):string{
+  /* The label for the checkbox on the passed row */
+  checkboxLabel(row?: any): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
@@ -113,59 +104,9 @@ export class ListTasksComponent implements OnInit {
 
   }
 
+  /* Get Functions */
 
-
-  getAllTasks() {
-    this.service.getAllTasks(this.filteration).subscribe(
-      (result: any) => {
-        this.dataSource = new MatTableDataSource<any>(this.mappingTasks(result.tasks));
-        this.total = result.totalItems;
-        this.dataSource.sort = this.sort;
-      },
-    );
-  }
-
-  sortData(sortState: Sort) {
-    if (sortState.direction) {
-      this.liveAnnouncer.announce(sortState.direction);
-    }
-  }
-
-  search(event: any):void {
-    this.filteration['keyword'] = event.value;
-    this.page = 1;
-    this.filteration['page'] = 1;
-    clearTimeout(this.timeoutId);
-    this.timeoutId = setTimeout(() => {
-      this.getAllTasks();
-    }, 500);
-
-  }
-
-  selectUser(event: any) {
-    this.filteration['userId'] = event.value
-    this.page = 1;
-    this.filteration['page'] = 1;
-    this.getAllTasks();
-  }
-
-  selectStatus(event: any) {
-    this.filteration['status'] = event.value;
-    this.page = 1;
-    this.filteration['page'] = 1;
-    this.getAllTasks()
-  }
-
-  selectDate(event: any, type: any) {
-    this.page = 1;
-    this.filteration['page'] = 1;
-    this.filteration[type] = moment(event.value).format('DD/MM/YYYY');
-    if (type == 'toDate' && this.filteration['toDate'] !== 'Invalid date') {
-      this.getAllTasks();
-    }
-  }
-
-
+  /*   Mapping for Table Tasks for getting user rather than userId.username  */
   mappingTasks(data: any[]) {
     let newTasks = data.map((item) => {
       return {
@@ -176,6 +117,85 @@ export class ListTasksComponent implements OnInit {
     return newTasks;
   }
 
+  /*   Get All Tasks  */
+  getAllTasks() {
+    this.service.getAllTasks(this.filteration).subscribe(
+      (result: any) => {
+        this.dataSource = new MatTableDataSource<any>(this.mappingTasks(result.tasks));
+        this.total = result.totalItems;
+        this.dataSource.sort = this.sort;
+      },
+    );
+  }
+
+  /*  Get User data  */
+  getUsers() {
+    this.userService.getUsersData();
+  }
+
+  /*  Create new array to catch only username and id from users service */
+  usersMapping(data: any) {
+    let newUsers = data?.map((item: any) => {
+      return {
+        name: item.username,
+        id: item._id
+      }
+    });
+    return newUsers;
+  }
+
+  /* Call all users (username and id) after mapping when you open the dialog */
+  getUsersFromBehaviorSubject() {
+    this.userService.userData.subscribe((res: any) => {
+      this.users = this.usersMapping(res.data);
+    })
+  }
+
+  /* Sort column data by clicking on arrow */
+  sortData(sortState: Sort) {
+    if (sortState.direction) {
+      this.liveAnnouncer.announce(sortState.direction);
+    }
+  }
+
+  /*   Search By Title */
+  search(event: any): void {
+    this.filteration['keyword'] = event.value;
+    this.page = 1;
+    this.filteration['page'] = 1;
+    clearTimeout(this.timeoutId);
+    this.timeoutId = setTimeout(() => {
+      this.getAllTasks();
+    }, 500);
+  }
+
+  /*   Search By User */
+  selectUser(event: any) {
+    this.filteration['userId'] = event.value
+    this.page = 1;
+    this.filteration['page'] = 1;
+    this.getAllTasks();
+  }
+
+  /*   Search By Status */
+  selectStatus(event: any) {
+    this.filteration['status'] = event.value;
+    this.page = 1;
+    this.filteration['page'] = 1;
+    this.getAllTasks()
+  }
+
+  /*   Search By Date */
+  selectDate(event: any, type: any) {
+    this.page = 1;
+    this.filteration['page'] = 1;
+    this.filteration[type] = moment(event.value).format('DD/MM/YYYY');
+    if (type == 'toDate' && this.filteration['toDate'] !== 'Invalid date') {
+      this.getAllTasks();
+    }
+  }
+
+  /*   Open Add Task Dialog */
   addTask() {
     const dialogRef = this.matDialog.open(AddTaskComponent, {
       width: '750px',
@@ -189,6 +209,7 @@ export class ListTasksComponent implements OnInit {
     });
   }
 
+  /*   Open Edit Task Dialog and send element data */
   editTask(element: any) {
     const dialogRef = this.matDialog.open(AddTaskComponent, {
       width: '750px',
@@ -203,6 +224,7 @@ export class ListTasksComponent implements OnInit {
     });
   }
 
+  /* Delete Task */
   deleteTask(id: any) {
     this.service.messageConfirm = this.translate.instant('confirmation.message-delete-task');
 
@@ -225,30 +247,11 @@ export class ListTasksComponent implements OnInit {
 
   }
 
+  /* Switch between table pages in pagination bar */
   changePage(event: any) {
     this.page = event;
     this.filteration['page'] = event;
     this.getAllTasks();
-  }
-
-  getUsers() {
-    this.userService.getUsersData()
-  }
-
-  getUsersFromBehaviorSubject() {
-    this.userService.userData.subscribe((res: any) => {
-      this.users = this.usersMapping(res.data);
-    })
-  }
-
-  usersMapping(data: any) {
-    let newUsers = data?.map((item: any) => {
-      return {
-        name: item.username,
-        id: item._id
-      }
-    });
-    return newUsers;
   }
 
 }

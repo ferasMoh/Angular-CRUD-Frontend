@@ -63,7 +63,7 @@
     "buttons": {
         "add-task": "إضافة مهمة",
         "create-task": "إنشاء مهمة",
-        "update-task": "تعديل",
+        "edit-task": "تعديل",
         "delete-task": "حذف",
         "close": "إغلاق",
         "selectImage": "تحديد صورة",

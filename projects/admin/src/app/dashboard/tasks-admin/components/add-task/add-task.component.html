@@ -1,62 +1,133 @@
+<!-- Add Task Dialog && Edit Task Dialog -->
+
 <div class="p-4">
-    <header class="d-flex justify-content-between align-items-center">
-        <h1 *ngIf="!data" class="m-0">{{'addTask.label' | translate}}</h1>
-        <h1 *ngIf="data" class="m-0">{{'addTask.edit-label' | translate}}</h1>
-            <div class="icon-close">
-                <mat-icon matTooltip="{{'tooltip.close' | translate}}" (click)="close()">close</mat-icon>
-             </div>
-    </header>
-    <form [formGroup]="newTaskForm" (keyup)="compareValues()">
-        <div class="row mt-3">
-            <div class="col-md-12">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{'addTask.title' | translate}}</mat-label>
-                    <input matInput formControlName="title" placeholder="{{'addTask.titlePH' | translate}}" />
-                </mat-form-field>
-            </div>
-            <div class="col-md-12">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{'addTask.user' | translate}}</mat-label>
-                    <mat-select formControlName="userId">
-                        <mat-option *ngFor="let user of users" [value]="user?.id">
-                            {{ user?.name }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="col-md-12 my-3">
-                <label for="selectImage" class="btn btn-danger">{{'buttons.selectImage' | translate}}</label>
-                <h4 class="my-2">{{'addTask.imagePath' | translate}} : {{imgPath}}</h4>
-                <input type="file" id="selectImage" hidden (change)="selectImage($event)" class="form-control"/>
-            </div>
-            <div class="col-md-12">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{'addTask.deadline' | translate}}</mat-label>
-                    <input matInput formControlName="deadline" [matDatepicker]="picker" />
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-            </div>
+  <!--  Header  -->
+  <header class="d-flex justify-content-between align-items-center">
+    <h1 *ngIf="!data" class="m-0">{{ "addTask.label" | translate }}</h1>
+    <h1 *ngIf="data" class="m-0">{{ "addTask.edit-label" | translate }}</h1>
+    <div class="icon-close">
+      <mat-icon matTooltip="{{ 'tooltip.close' | translate }}" (click)="close()"
+        >close</mat-icon
+      >
+    </div>
+  </header>
 
-            <div class="col-md-12">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{'addTask.description' | translate}}</mat-label>
-                    <textarea matInput formControlName="description" placeholder="{{'addTask.descriptionPH' | translate}}"></textarea>
-                </mat-form-field>
-            </div>
-        </div>
-    </form>
+  <!--  Add & Edit Task Form  -->
+  <form [formGroup]="addTaskForm" (keyup)="compareValues()">
+    <div class="row mt-3">
 
-    <footer class="tw-p-6">
-        <div class="d-flex justify-content-center align-items-center">
-            <button *ngIf="!data" mat-flat-button color="primary" class="py-1 px-5 mx-2" (click)="createTask()" [disabled]="newTaskForm.invalid">
-                {{'buttons.create-task' | translate}}
-            </button>
-            <button *ngIf="data" mat-flat-button color="primary" class="py-1 px-5 mx-2" (click)="updateTask()" [disabled]="!hasChanges">
-                {{'buttons.update-task' | translate}}
-            </button>
+      <!-- Title Form  -->
+      <div class="col-md-12">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{ "addTask.title" | translate }}</mat-label>
+          <input
+            matInput
+            formControlName="title"
+            placeholder="{{ 'addTask.titlePH' | translate }}"
+          />
+        </mat-form-field>
+      </div>
 
-            <button mat-flat-button color="warn" class="py-1 px-5" (click)="close()">{{'buttons.close' | translate}}</button>
-        </div>
-    </footer>
+      <!-- User Form  -->
+      <div class="col-md-12">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{ "addTask.user" | translate }}</mat-label>
+          <mat-select
+            (selectionChange)="compareValues()"
+            formControlName="userId"
+          >
+            <mat-option *ngFor="let user of users" [value]="user?.id">
+              {{ user?.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Image Form  -->
+      <div class="col-md-12 my-3">
+        <label for="selectImage" class="btn btn-danger">{{
+          "buttons.selectImage" | translate
+        }}</label>
+        <h4 class="my-2">
+          {{ "addTask.imagePath" | translate }} : {{ imgPath }}
+          <p *ngIf="!imgPath">{{ data?.image }}</p>
+        </h4>
+        <input
+          type="file"
+          id="selectImage"
+          hidden
+          (change)="selectImage($event)"
+          class="form-control"
+        />
+      </div>
+
+      <!-- Deadline Form  -->
+      <div class="col-md-12">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{ "addTask.deadline" | translate }}</mat-label>
+          <input
+            (dateChange)="compareValues()"
+            matInput
+            formControlName="deadline"
+            [matDatepicker]="picker"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <!-- Description Form  -->
+      <div class="col-md-12">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{ "addTask.description" | translate }}</mat-label>
+          <textarea
+            matInput
+            formControlName="description"
+            placeholder="{{ 'addTask.descriptionPH' | translate }}"
+          ></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </form>
+
+  <!--  Footer ( buttons )  -->
+  <footer class="tw-p-6">
+    <div class="d-flex justify-content-center align-items-center">
+      
+      <!--   Create Task button  -->
+      <button
+        *ngIf="!data"
+        mat-flat-button
+        color="primary"
+        class="py-1 px-5 mx-2"
+        (click)="createTask()"
+        [disabled]="addTaskForm.invalid"
+      >
+        {{ "buttons.create-task" | translate }}
+      </button>
+
+      <!--   Edit Task button  -->
+      <button
+        *ngIf="data"
+        mat-flat-button
+        color="primary"
+        class="py-1 px-5 mx-2"
+        (click)="editTask()"
+        [disabled]="!hasChanges"
+      >
+        {{ "buttons.edit-task" | translate }}
+      </button>
+
+      <!--   Close Dialog button  -->
+      <button mat-flat-button color="warn" class="py-1 px-5" (click)="close()">
+        {{ "buttons.close" | translate }}
+      </button>
+
+    </div>
+  </footer>
+
 </div>

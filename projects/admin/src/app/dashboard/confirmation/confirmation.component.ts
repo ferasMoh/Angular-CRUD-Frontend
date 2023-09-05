@@ -14,29 +14,31 @@ export class ConfirmationComponent {
   constructor(
     public dialog: MatDialogRef<ConfirmationComponent>,
     public matDialog: MatDialog,
-    private service:TasksService,
-    private translate:TranslateService
-  ){}
-  discardChanges:string = this.translate.instant('confirmation.message-close')
-  messageConfirm:string = this.service.messageConfirm;
-  
+    private service: TasksService,
+    private translate: TranslateService
+  ) { }
 
-  confirm(){
+  discardChanges: string = this.translate.instant('confirmation.message-close')
+  messageConfirm: string = this.service.messageConfirm;
+
+/*   Ok button for Operations confirm */
+  confirm() {
     this.service.dialogConfirm = 'yes';
     this.dialog.close();
     this.service.messageConfirm = '';
   }
 
-  confirmClosingDialog(){
+/*   Ok button for Closing All dialogs */
+  confirmClosingDialog() {
     this.matDialog.closeAll();
     this.service.messageConfirm = '';
- }
+  }
 
-  cancel(){
+/*   Cancel button */
+  cancel() {
     this.dialog.close();
     this.service.dialogConfirm = 'no';
     this.service.messageConfirm = '';
   }
-
   
 }

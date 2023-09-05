@@ -31,8 +31,7 @@ export class LoginComponent implements OnInit {
     this.createForm()
   }
 
-  /* Login Form */
-
+/*   Create New Form to write email and password and make them required */
   createForm() {
     this.logInForm = this.fb.group({
       email: ['', [Validators?.required, Validators?.email]],
@@ -41,8 +40,7 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  /* Login button */
-
+  /* Login process */
   logIn() {
     this.srevice.logIn(this.logInForm.value).subscribe((res: any) => {
       localStorage.setItem("token", res.token)

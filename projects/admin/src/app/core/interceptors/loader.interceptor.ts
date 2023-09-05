@@ -11,10 +11,10 @@ import { NgxSpinnerService } from 'ngx-spinner';
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
 
-  /*   This Interceptor will show Spinner animation when loading */
-
   counter: number = 0;
   constructor(private spinner: NgxSpinnerService) { }
+
+  /*   This Interceptor will show Spinner animation when loading */
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     this.counter++;

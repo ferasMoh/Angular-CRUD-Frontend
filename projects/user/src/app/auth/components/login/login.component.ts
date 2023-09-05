@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { TranslateService } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
 
@@ -29,6 +28,7 @@ export class LoginComponent implements OnInit {
     this.title.setTitle('Tasks | Login')
   }
 
+/*   Create New Form to write data in fields and make them required  */
   createForm(){
     this.loginForm = this.fb.group({
       email:['',Validators.required],
@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
     })
   }
 
+/*   Login proccess */
   login(){
     this.service.login(this.loginForm.value).subscribe((res:any)=>{
       localStorage.setItem("token",res.token)

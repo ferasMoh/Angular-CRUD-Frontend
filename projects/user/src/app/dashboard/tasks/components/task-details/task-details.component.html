@@ -1,18 +1,34 @@
+<!-- Task Details -->
+
 <div class="container">
-    <div class="imageBox">
-        <img [src]="'https://crud-db-801e.onrender.com/' + taskDetails.image" alt="undefined" />
-    </div>
-    <div class="justify-content-between align-items-baseline my-3">
-        <p>Title : </p>
-        <h1 class="card-subtitle">{{taskDetails.title}}</h1>
-    </div>
-    <hr>
-    <p>Date : </p>
-    <h1 class="card-subtitle my-2 text-muted">{{taskDetails.deadline}}</h1>
-    <hr>
-    <p>Description : </p>
-    <h1 class="card-text">{{taskDetails.description}}</h1>
-    <hr>
-    <p>( If you complete this task press Complete)</p>
-    <button  mat-raised-button color="warn" (click)="complete()">{{'buttons.complete' | translate}}</button>
+  <!-- Task Image -->
+  <div class="imageBox">
+    <img
+      [src]="'https://crud-db-801e.onrender.com/' + taskDetails.image"
+      alt="undefined"
+    />
+  </div>
+
+  <!-- Task Title -->
+  <div class="justify-content-between align-items-baseline my-3">
+    <p>Title :</p>
+    <h1 class="card-subtitle">{{ taskDetails.title }}</h1>
+  </div>
+  <hr />
+
+  <!-- Task Date -->
+  <p>Date :</p>
+  <h1 class="card-subtitle my-2 text-muted">{{ taskDetails.deadline }}</h1>
+  <hr />
+
+  <!-- Task Description -->
+  <p>Description :</p>
+  <h1 class="card-text">{{ taskDetails.description }}</h1>
+  <hr />
+
+  <!-- Task Complete button -->
+  <p>( If you complete this task press Complete)</p>
+  <button mat-raised-button color="warn" (click)="complete()">
+    {{ "buttons.complete" | translate }}
+  </button>
 </div>

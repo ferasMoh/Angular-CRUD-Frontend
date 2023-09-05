@@ -1,28 +1,48 @@
 <div class="mt-4">
-
   <div class="row">
+    <!-- Task Card -->
     <div
-    class="col-md-3"
-    *ngFor="let item of dataSource | paginate: { 
+      class="col-md-3"
+      *ngFor="let item of dataSource | paginate: { 
       id: 'tasks',
       itemsPerPage: 10,
       currentPage: page,
       totalItems: total,
     };
-    let index = index">
-      <div class="card mt-3" >
+    let index = index"
+    >
+      <div class="card mt-3">
         <div class="card-body">
-          <img [src]="'https://crud-db-801e.onrender.com/' + item.image" alt="" />
-          <h2 class="card-title">{{item.title}}</h2>
-          <p class="card-subtitle mb-2 text-muted">Dead-Line Date : {{item.deadline}}</p>
-          <p class="card-text">{{item.description }}</p>
-          <a  class="card-link" routerLink="/tasks/{{item._id}}" mat-raised-button color="basic">{{'buttons.details' | translate}}</a>
-          <button  mat-raised-button color="warn" (click)="complete(item)">{{'buttons.complete' | translate}}</button>
+          <img
+            [src]="'https://crud-db-801e.onrender.com/' + item.image"
+            alt=""
+          />
+          <h2 class="card-title">{{ item.title }}</h2>
+          <p class="card-subtitle mb-2 text-muted">
+            Dead-Line Date : {{ item.deadline }}
+          </p>
+          <p class="card-text">{{ item.description }}</p>
+          <a
+            class="card-link"
+            routerLink="/tasks/{{ item._id }}"
+            mat-raised-button
+            color="basic"
+            >{{ "buttons.details" | translate }}</a
+          >
+          <button mat-raised-button color="warn" (click)="complete(item)">
+            {{ "buttons.complete" | translate }}
+          </button>
         </div>
       </div>
     </div>
   </div>
+
+  <!--  Pagination bar -->
   <div class="pagination d-flex justify-content-center my-4">
-    <pagination-controls (pageChange)="changePage($event)" id="tasks"></pagination-controls>
-    <p class="my-1">\ {{total}} Task \</p>
+    <pagination-controls
+      (pageChange)="changePage($event)"
+      id="tasks"
+    ></pagination-controls>
+    <p class="my-1">\ {{ total }} Task \</p>
   </div>
+</div>

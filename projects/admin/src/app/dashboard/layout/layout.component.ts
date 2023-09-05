@@ -11,6 +11,7 @@ import { ConfirmationComponent } from '../confirmation/confirmation.component';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent {
+
   lang: any = 'en';
 
   constructor(
@@ -22,6 +23,8 @@ export class LayoutComponent {
     this.lang = this.translate.currentLang;
   }
 
+  /*  Change Language */
+  /*  Language will storing in local storage to be the main language then page will be reloading */
   changeLang() {
     if (this.lang == 'en') {
       localStorage.setItem('language', 'ar');
@@ -31,6 +34,9 @@ export class LayoutComponent {
     window.location.reload();
   }
 
+  /* Logout button */
+  /* open confirmation dialog */
+  /* Token will remove from local Storage then navigate to login page */
   logout() {
     if ('token' in localStorage) {
       this.serviceTasks.messageConfirm = this.translate.instant('confirmation.message-logout');
@@ -44,8 +50,6 @@ export class LayoutComponent {
           this.serviceTasks.dialogConfirm = 'no';
         }
       })
-    } else {
-      this.router.navigate(['login']);
     }
   }
-}
+} 

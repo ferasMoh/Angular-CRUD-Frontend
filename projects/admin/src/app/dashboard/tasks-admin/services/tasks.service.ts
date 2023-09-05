@@ -7,31 +7,37 @@ import { environment } from 'projects/admin/src/environments/environment';
   providedIn: 'root',
 })
 export class TasksService {
-  constructor(private http: HttpClient) {}
 
-  dialogConfirm:string = 'no';
-  messageConfirm:string = '';
-  
-  getAllTasks(filter:any) {
+  dialogConfirm: string = 'no';
+  messageConfirm: string = '';
+
+  constructor(private http: HttpClient) { }
+
+  /*   Get All Tasks */
+  getAllTasks(filter: any) {
     let params = new HttpParams()
-    Object.entries(filter).forEach(([key,value]:any) =>{
-    if(value){
-    params = params.append(key, value)
-    }
-  })
+    Object.entries(filter).forEach(([key, value]: any) => {
+      if (value) {
+        params = params.append(key, value)
+      }
+    })
 
-    return this.http.get(environment.baseApi + '/all-tasks', {params});
-  }
- 
-  createTask(model:any){
-    return this.http.post(environment.baseApi + '/add-task',model)
+    return this.http.get(environment.baseApi + '/all-tasks', { params });
   }
 
-  updateTask(model:any, id:any){
-    return this.http.put(environment.baseApi + '/edit-task/' + id ,model)
+  /*   Create New Task */
+  createTask(model: any) {
+    return this.http.post(environment.baseApi + '/add-task', model)
   }
 
-  deleteTask(id:any){
+  /*   Edit Task */
+  editTask(model: any, id: any) {
+    return this.http.put(environment.baseApi + '/edit-task/' + id, model)
+  }
+
+  /*   Delete Task */
+  deleteTask(id: any) {
     return this.http.delete(environment.baseApi + '/delete-task/' + id)
   }
+
 }

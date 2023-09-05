@@ -63,7 +63,7 @@
     "buttons": {
         "add-task": "ِAdd Task",
         "create-task" : "Create",
-        "update-task": "Update",
+        "edit-task": "Edit",
         "delete-task": "Delete",
         "close": "Close",
         "selectImage": "Select Image",

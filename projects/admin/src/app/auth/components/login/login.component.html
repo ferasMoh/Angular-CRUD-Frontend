@@ -1,37 +1,51 @@
 <!-- Login Page -->
 
 <div class="login d-flex justify-content-center align-items-center m-auto">
-
-    <div class="row">
-        <div class="col-md-6 p-0">
-            <div class="overlay"></div>
-            <img src="../../../../assets/login.png" alt="">
-        </div>
-        <div class="col-md-6">
-         <div class="h-100 d-flex align-items-center justify-content-center w-100">
-            <div class="box w-75">
-                <h2>{{'login.title' | translate}}</h2>
-
-
-                <form [formGroup]="logInForm">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'login.email' | translate}}</mat-label>
-                        <input matInput placeholder="{{'login.email' | translate}}" formControlName="email">
-                        <mat-error>{{'login.required' | translate}}</mat-error>
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{'login.password' | translate}}</mat-label>
-                        <input matInput  placeholder="{{'login.password' | translate}}" type="password" formControlName="password">
-                        <mat-error>{{'login.required' | translate}}</mat-error>
-
-                    </mat-form-field>
-                </form>
-                <div class="d-flex justify-content-center">
-                    <button   mat-raised-button color="warn" (click)="logIn()">{{'login.title' | translate}}</button>
-                </div>
-            </div>
-         </div>
-        </div>
+  <div class="row">
+    <!-- Image Side -->
+    <div class="col-md-6 p-0">
+      <div class="overlay"></div>
+      <img src="../../../../assets/login.png" alt="" />
     </div>
 
+    <!-- Form Side -->
+    <div class="col-md-6">
+      <div class="h-100 d-flex align-items-center justify-content-center w-100">
+        <div class="box w-75">
+          <!-- Form Title -->
+          <h2>{{ "login.title" | translate }}</h2>
+
+          <!-- Form fields -->
+          <form [formGroup]="logInForm">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>{{ "login.email" | translate }}</mat-label>
+              <input
+                matInput
+                placeholder="{{ 'login.email' | translate }}"
+                formControlName="email"
+              />
+              <mat-error>{{ "login.required" | translate }}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>{{ "login.password" | translate }}</mat-label>
+              <input
+                matInput
+                placeholder="{{ 'login.password' | translate }}"
+                type="password"
+                formControlName="password"
+              />
+              <mat-error>{{ "login.required" | translate }}</mat-error>
+            </mat-form-field>
+          </form>
+
+          <!--  Login button -->
+          <div class="d-flex justify-content-center">
+            <button mat-raised-button color="warn" (click)="logIn()">
+              {{ "login.title" | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

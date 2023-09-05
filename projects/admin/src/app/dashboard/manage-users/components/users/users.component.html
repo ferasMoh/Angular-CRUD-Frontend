@@ -1,5 +1,8 @@
+<!-- Manage-Users Page -->
+
 <div class="mt-4">
 
+<!-- Search By Name -->
   <form>
     <div class="row mt-3">
       <div class="col-md-3">
@@ -10,6 +13,9 @@
       </div>
     </div>
   </form>
+
+
+ <!--  Table of Users -->
   <div class="listBox">
     <table
     mat-table
@@ -74,6 +80,8 @@
               totalItems: totalItems,
             }"></tr>
     </table>
+
+<!--     pagination bar -->
     <div class="pagination d-flex justify-content-center my-4">
       <pagination-controls (pageChange)="changePage($event)" id="tasks"></pagination-controls>
       <p class="my-1">\ {{totalItems}} {{'general.pagination-user' | translate}} \</p>
