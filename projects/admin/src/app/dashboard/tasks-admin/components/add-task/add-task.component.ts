@@ -80,7 +80,7 @@ export class AddTaskComponent implements OnInit {
     return userMapping;
   }
 
-  /* Call all users (username and id) after mapping when you open the dialog */
+  /* Call all users from behaviour subject after mapping then store it in users Array */
   getUsersFromBehaviorSubject() {
     this.userService.userData.subscribe((res: any) => {
       this.users = this.usersMapping(res.data);

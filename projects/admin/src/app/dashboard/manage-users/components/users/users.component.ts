@@ -14,13 +14,18 @@ import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
+  @ViewChild(MatSort) sort: MatSort;
 
-  @ViewChild(MatSort) sort: MatSort
-
-  displayedColumns: string[] = ['id', 'username', 'email', 'assignedTasks', 'actions'];
+  displayedColumns: string[] = [
+    'id',
+    'username',
+    'email',
+    'assignedTasks',
+    'actions',
+  ];
   dataSource: MatTableDataSource<any>;
   page: any = 1;
   totalItems: any;
@@ -36,9 +41,10 @@ export class UsersComponent implements OnInit {
     public matDialog: MatDialog,
     private liveAnnouncer: LiveAnnouncer,
     private title: Title,
-    private router: Router) {
+    private router: Router
+  ) {
     this.getUsersFromBehaviorSubject();
-    this.title.setTitle('Tasks | All Users')
+    this.title.setTitle('Tasks | All Users');
   }
 
   ngOnInit(): void {
@@ -56,14 +62,13 @@ export class UsersComponent implements OnInit {
     }, 500);
   }
 
-  /* Get Users from server */
-  /* put Users inside dataSource array then call them by mat-table */
+  /* Get Users from Behaviour Subject and call them in mat-table */
   getUsersFromBehaviorSubject() {
     this.service.userData.subscribe((res: any) => {
       this.dataSource = new MatTableDataSource<any>(res.data);
       this.totalItems = res.totalItems;
       this.dataSource.sort = this.sort;
-    })
+    });
   }
 
   /* Sort column data by clicking on arrow */
@@ -76,42 +81,48 @@ export class UsersComponent implements OnInit {
   /* Delete User from server */
   /* Open confirmation dialog */
   deleteUser(id: string, index: number) {
-    this.serviceTasks.messageConfirm = this.translate.instant('confirmation.message-delete-user');
+    this.serviceTasks.messageConfirm = this.translate.instant(
+      'confirmation.message-delete-user'
+    );
     const dialogRef = this.matDialog.open(ConfirmationComponent, {
       width: '650px',
-    })
+    });
     dialogRef.afterClosed().subscribe((res: any) => {
       if (this.serviceTasks.dialogConfirm == 'yes') {
         if (this.dataSource.data[index].assignedTasks > 0) {
-          this.toastr.error(this.translate.instant('toastr.error-delete-user'))
+          this.toastr.error(this.translate.instant('toastr.error-delete-user'));
         } else {
           this.service.deleteUser(id).subscribe((res: any) => {
             this.page = 1;
-            this.toastr.success(this.translate.instant('toastr.success-delete-user'))
-            this.serviceTasks.dialogConfirm == 'no'
+            this.toastr.success(
+              this.translate.instant('toastr.success-delete-user')
+            );
+            this.serviceTasks.dialogConfirm == 'no';
             this.service.getUsersData(this.filteration);
-
-          })
+          });
         }
       }
-    })
-
+    });
   }
 
   /* Chnage User Status ( Active & In-Active ) */
   changeUserStatus(status: any, id: string, index: number) {
     if (this.dataSource.data[index].assignedTasks > 0) {
-      this.toastr.error(this.translate.instant('toastr.error-change-user-status'))
+      this.toastr.error(
+        this.translate.instant('toastr.error-change-user-status')
+      );
     } else {
       const model: changeStatus = {
         id: id,
-        status: status
-      }
+        status: status,
+      };
       this.service.changeStatus(model).subscribe((res: any) => {
         this.page = 1;
-        this.toastr.success(this.translate.instant('toastr.success-change-user-status'))
+        this.toastr.success(
+          this.translate.instant('toastr.success-change-user-status')
+        );
         this.service.getUsersData(this.filteration);
-      })
+      });
     }
   }
 
@@ -121,5 +132,4 @@ export class UsersComponent implements OnInit {
     this.filteration['page'] = event;
     this.service.getUsersData(this.filteration);
   }
-
 }

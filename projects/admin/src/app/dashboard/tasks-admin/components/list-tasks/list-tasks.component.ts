@@ -67,45 +67,6 @@ export class ListTasksComponent implements OnInit {
     this.getAllTasks();
   }
 
-  /*   Select Row by checkbox */
-  select(row: any, index: number) {
-    if (this.selection.isSelected(row)) {
-      this.selectedRows.push(row)
-      //console.log(this.selectedRows)
-    }
-    if (!this.selection.isSelected(row)) {
-      this.selectedRows.splice(index, 1)
-      //console.log(this.selectedRows)
-    }
-  }
-
-  /*  Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource?.data.length;
-    return numSelected === numRows;
-  }
-
-  /* Selects all rows if they are not all selected; otherwise clear selection  */
-  toggleAllRows() {
-    if (this.isAllSelected()) {
-      this.selection.clear();
-      return;
-    }
-    this.selection.select(...this.dataSource?.data);
-  }
-
-  /* The label for the checkbox on the passed row */
-  checkboxLabel(row?: any): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-
-  }
-
-  /* Get Functions */
-
   /*   Mapping for Table Tasks for getting user rather than userId.username  */
   mappingTasks(data: any[]) {
     let newTasks = data.map((item) => {
@@ -144,7 +105,7 @@ export class ListTasksComponent implements OnInit {
     return newUsers;
   }
 
-  /* Call all users (username and id) after mapping when you open the dialog */
+  /* Call all users from behaviour subject after mapping then store it in users Array */
   getUsersFromBehaviorSubject() {
     this.userService.userData.subscribe((res: any) => {
       this.users = this.usersMapping(res.data);
@@ -193,6 +154,43 @@ export class ListTasksComponent implements OnInit {
     if (type == 'toDate' && this.filteration['toDate'] !== 'Invalid date') {
       this.getAllTasks();
     }
+  }
+
+  /*   Select Row by checkbox */
+  selectRow(row: any, index: number) {
+    if (this.selection.isSelected(row)) {
+      this.selectedRows.push(row)
+      //console.log(this.selectedRows)
+    }
+    if (!this.selection.isSelected(row)) {
+      this.selectedRows.splice(index, 1)
+      //console.log(this.selectedRows)
+    }
+  }
+
+  /*  Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource?.data.length;
+    return numSelected === numRows;
+  }
+
+  /* Selects all rows if they are not all selected; otherwise clear selection  */
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+    this.selection.select(...this.dataSource?.data);
+  }
+
+  /* The label for the checkbox on the passed row */
+  checkboxLabel(row?: any): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+
   }
 
   /*   Open Add Task Dialog */

@@ -39,7 +39,7 @@ export class UsersService {
     return this.http.get(environment.baseApi.replace('tasks', 'auth') + '/users/', { params })
   }
 
-  /*   Get All Users Data */
+  /*   Get All Users and set them inside behaviour Subject */
   getUsersData(model?: any) {
     this.getAllUsers(model).subscribe((res: any) => {
       this.userData.next({
