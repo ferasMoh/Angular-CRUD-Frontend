@@ -4,7 +4,7 @@ https://github.com/ferasMoh/crud-Frontend
 
 ## Description
 This is an CRUD project and its talking about an admin who distributes tasks to his users,
-We divided the project into two parts ( admin part and user part ),
+We are divided the project into two parts ( admin part and user part ),
 admin part call it by this command ( ng serve admin ),
    Port : 3000  ,   Link : http://localhost:3000/ ,
 user part call it by this command ( ng serve user ),
