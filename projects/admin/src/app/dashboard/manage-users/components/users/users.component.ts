@@ -26,6 +26,7 @@ export class UsersComponent implements OnInit {
     'assignedTasks',
     'actions',
   ];
+  
   dataSource: MatTableDataSource<any>;
   page: any = 1;
   totalItems: any;
@@ -132,4 +133,4 @@ export class UsersComponent implements OnInit {
     this.filteration['page'] = event;
     this.service.getUsersData(this.filteration);
   }
-}
+} 
